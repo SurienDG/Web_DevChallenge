@@ -143,7 +143,7 @@ function MakeLeftTable (searchResults,searchParam) {
 	var table = document.getElementById("results").innerHTML;
 	var row = ""; 
 	
-	for (var i=0; i<10 && !(jQuery.isEmptyObject(searchResults.items[i])); i++) {
+	for (var i=0; i<10 && !(jQuery.isEmptyObject(searchResults.items[i])) && !($("#tag9").length); i++) {
 		row="";
 		table += "<tr>";
 	table += "<td><a id = \"name\" href=\"" + searchResults.items[i].html_url + "\">" + searchResults.items[i].full_name + "</a></td>";
