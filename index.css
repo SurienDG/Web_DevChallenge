@@ -1,7 +1,7 @@
 body
 	{
 		margin: 0;
-		font-family: garamond, arial;
+		font-family: helvetica, arial, sans-serif;
 		font-size: 20;
 		color: #333333;
 		overflow-x: hidden;
@@ -26,12 +26,36 @@ body
 
 			}
 .leftContent {
-				float: left;
+			    float: left;
 				width: 50%;
 				height: 100%;
 				background: white;
 					
 			 }
+.leftContent input[type=text] {
+								border-radius: 4px;
+								float: left;
+								padding: 10px;
+								width: 70%;
+								border-color: black;
+								margin-top: 5%;
+								margin-left: 5%;
+								font-size: 18px;
+							
+							  }
+.leftContent input[type=submit] {
+								border-radius: 4px;
+								float: left;
+								color:white;
+								padding: 10px;
+								width: 20%;
+								background-color: #7433F1;
+								border-color: #7433F1;
+								margin-top: 5%;
+								margin-left: 2%;
+								font-size: 18px;
+							
+							  }
 .rightContent	
 			{
 				float: left;
@@ -40,3 +64,21 @@ body
 				background: #F3ECFE;
 					
 			 }
+table 
+				{
+					padding: 5%;
+				}
+table th
+					{
+						width: 3%;
+						font-weight: bolder;
+						text-align: left;
+					}
+
+table td 
+				{
+					
+
+					text-align: left;
+				}
+
