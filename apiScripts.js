@@ -29,7 +29,7 @@ function starredRepo (repo, row, index, tagUrl, searchparam) {
 	
 	function processRequest(e) {
 	 if (xhr.readyState == 4 && xhr.status == 204) {
-		 row+="<a id=\"remove" + index + "\" href=\"#\" onclick=\"unstarRepo(\'" + repo + "\',\'" + searchparam + "\');return false;\">remove</a>";
+		 row+="<a id=\"remove" + index + "\" href=\"#\" onclick=\"unstarRepo(\'" + repo + "\',\'" + searchparam + "\');return false;\">Remove</a>";
 		 row+="</td></tr>";
 		document.getElementById("favourites").innerHTML += row;
 		document.getElementById("favourite" + index).innerHTML = ""; 
@@ -151,7 +151,7 @@ function MakeLeftTable (searchResults,searchParam) {
 		table += "<td>" + searchResults.items[i].language + "</td>";
 		table += "<td id=\"tag" + i + "\"></td>";
 		table += "<td id=\"favourite" + i + "\">";
-		table+="<a id=\"add" + i + "\" href=\"#\" onclick=\"starRepo(\'" + searchResults.items[i].full_name + "\',\'" + searchParam + "\');return false;\">add</a>";
+		table+="<a id=\"add" + i + "\" href=\"#\" onclick=\"starRepo(\'" + searchResults.items[i].full_name + "\',\'" + searchParam + "\');return false;\">Add</a>";
 		 table+="</td></tr>";
 		//table += "</tr>";
 		row += "<tr>";
