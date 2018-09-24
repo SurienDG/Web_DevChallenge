@@ -19,7 +19,7 @@ function starRepo (repo) {
 	 }
  }
 }
-function starredRepo (repo, row, index, tagUrl) {
+function starredRepo (repo, row, index, tagUrl, searchparam) {
  var Url = "https://api.github.com/user/starred/" + repo;
  var xhr = new XMLHttpRequest();
 			  xhr.open('Get', Url, true);
@@ -31,13 +31,17 @@ function starredRepo (repo, row, index, tagUrl) {
 	
 	function processRequest(e) {
 	 if (xhr.readyState == 4 && xhr.status == 204) {
+		 var repoEscaped = repo.replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/\t/g,'\\t').replace(/\v/g,'\\v').replace(/'/g,"\\'").replace(/"/g,'\\"');
+		 var searchparamEscaped = searchparam.replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/\t/g,'\\t').replace(/\v/g,'\\v').replace(/'/g,"\\'").replace(/"/g,'\\"');
+		 row+="<a id=\"remove" + index + "\" href=\"#\" onclick=\"unstarRepo(\"" + repoEscaped + "\",\"" + searchparamEscaped + "\");return false;\">remove</a>"
+		 row+="</td></tr>";
 		document.getElementById("favourites").innerHTML += row;
 		tags(tagUrl, index);
 	 }
  }
 }
 
-function unstarRepo (repo) {
+function unstarRepo (repo, searchparam) {
  var Url = "https://api.github.com/user/starred/" + repo;
  var xhr = new XMLHttpRequest();
 			  xhr.open('Delete', Url, true);
@@ -130,7 +134,7 @@ function search (searchParam) {
 	function processRequest(e) {
 	 if (xhr.readyState == 4 && xhr.status == 200) {
 		var results = JSON.parse(xhr.responseText);
-		MakeLeftTable(results);
+		MakeLeftTable(results,searchParam);
 		
 	 }
  }
@@ -138,7 +142,7 @@ function search (searchParam) {
 }
 
 
-function MakeLeftTable (searchResults) {
+function MakeLeftTable (searchResults,searchParam) {
 	//$("#results").load("LeftTableHeader.html");
 	var table = document.getElementById("results").innerHTML;
 	var row = ""; 
@@ -157,9 +161,9 @@ function MakeLeftTable (searchResults) {
 		//var language = mainLanguage(searchResults.items[i].full_name);
 		row += "<td>" + searchResults.items[i].language + "</td>";
 		row += "<td id=\"tags" + i + "\"></td>";
-		row += "<td id=\"favourites" + i + "\"></td>";
-	row += "</tr>";
-		starredRepo(searchResults.items[i].full_name,row, i, searchResults.items[i].tags_url);
+		row += "<td id=\"favourites" + i + "\">";
+	
+		starredRepo(searchResults.items[i].full_name,row, i, searchResults.items[i].tags_url,searchParam);
 	}
 	document.getElementById("results").innerHTML=table;
 	for (var i=0; i<10 && !(jQuery.isEmptyObject(searchResults.items[i])); i++) {
