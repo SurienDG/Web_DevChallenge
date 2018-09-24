@@ -1,4 +1,4 @@
-var apiKey="InsertAPIKEY";
+var apiKey="078a103d2967d8305519ca0789cb69977ea41054";
 
 
 function starRepo (repo) {
@@ -51,8 +51,7 @@ function unstarRepo (repo, searchparam) {
 	
 	function processRequest(e) {
 	 if (xhr.readyState == 4 && xhr.status == 204) {
-		var response1 = "unstarred";
-		document.getElementById("origin").innerHTML = response1;
+		search(searchparam);
 	 }
  }
 }
