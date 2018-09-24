@@ -19,7 +19,7 @@ function starRepo (repo) {
 	 }
  }
 }
-function starredRepo (repo, row) {
+function starredRepo (repo, row, index, tagUrl) {
  var Url = "https://api.github.com/user/starred/" + repo;
  var xhr = new XMLHttpRequest();
 			  xhr.open('Get', Url, true);
@@ -32,6 +32,7 @@ function starredRepo (repo, row) {
 	function processRequest(e) {
 	 if (xhr.readyState == 4 && xhr.status == 204) {
 		document.getElementById("favourites").innerHTML += row;
+		tags(tagUrl, index);
 	 }
  }
 }
@@ -91,12 +92,18 @@ function tags (tagUrl, tagNumber) {
 		 if (jQuery.isEmptyObject(tags))
 		 {
 			 document.getElementById("tag" + tagNumber).innerHTML = "-";
-			 document.getElementById("tags" + tagNumber).innerHTML = "-";
+			 if( $('#tags' + tagNumber).length )  
+			 {
+			 	document.getElementById("tags" + tagNumber).innerHTML = "-";
+			 }
 		 }
 		 else
 		 {
 			 document.getElementById("tag" + tagNumber).innerHTML = tags[0].name;
-			 document.getElementById("tags" + tagNumber).innerHTML = tags[0].name;
+			 if( $('#tags' + tagNumber).length )  
+			 {
+			 	document.getElementById("tags" + tagNumber).innerHTML = tags[0].name;
+			 }
 		 }
 	 }
  };
@@ -152,10 +159,10 @@ function MakeLeftTable (searchResults) {
 		row += "<td id=\"tags" + i + "\"></td>";
 		row += "<td id=\"favourites" + i + "\"></td>";
 	row += "</tr>";
-		starredRepo(searchResults.items[i].full_name,row);
+		starredRepo(searchResults.items[i].full_name,row, i, searchResults.items[i].tags_url);
 	}
 	document.getElementById("results").innerHTML=table;
-	for (var i=0; i<10; i++) {
+	for (var i=0; i<10 && !(jQuery.isEmptyObject(searchResults.items[i])); i++) {
 	tags(searchResults.items[i].tags_url, i);	
 	}
 	
