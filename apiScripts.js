@@ -1,4 +1,4 @@
-var apiKey="32ab3a807edd3ad0a0299f09d768102e6fea1440";
+var apiKey="InsertAPIKEY";
 
 
 function starRepo (repo) {
@@ -31,9 +31,7 @@ function starredRepo (repo, row, index, tagUrl, searchparam) {
 	
 	function processRequest(e) {
 	 if (xhr.readyState == 4 && xhr.status == 204) {
-		 var repoEscaped = repo.replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/\t/g,'\\t').replace(/\v/g,'\\v').replace(/'/g,"\\'").replace(/"/g,'\\"');
-		 var searchparamEscaped = searchparam.replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/\t/g,'\\t').replace(/\v/g,'\\v').replace(/'/g,"\\'").replace(/"/g,'\\"');
-		 row+="<a id=\"remove" + index + "\" href=\"#\" onclick=\"unstarRepo(\"" + repoEscaped + "\",\"" + searchparamEscaped + "\");return false;\">remove</a>"
+		 row+="<a id=\"remove" + index + "\" href=\"#\" onclick=\"unstarRepo(\'" + repo + "\',\'" + searchparam + "\');return false;\">remove</a>"
 		 row+="</td></tr>";
 		document.getElementById("favourites").innerHTML += row;
 		tags(tagUrl, index);
@@ -120,7 +118,7 @@ function tags (tagUrl, tagNumber) {
 function search (searchParam) {
 	$("#results").load("LeftTableHeader.html");
 	$("#favourites").load("LeftTableHeader.html");
-	searchParam = searchParam.replace(/ /g,'+');
+	//searchParam = searchParam.replace(/ /g,'+');
  var Url = "https://api.github.com/search/repositories?q=" + searchParam;
 	
  var xhr = new XMLHttpRequest();
