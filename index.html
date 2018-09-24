@@ -33,7 +33,7 @@
 			</table>
 		</div>
 		<div id="rightContainer" class="rightContent">
-			<table class="RightTable" id="results">
+			<table class="RightTable" id="favourites">
 				<tr>
 					<th>Name</th>
 					<th>Language</th>
@@ -48,7 +48,9 @@
 		$( "#asearch" ).keyup(function() {
   			if ($(this).val() == "") {
 			document.getElementById("results").innerHTML = "";
+				document.getElementById("favourites").innerHTML = "";
 				$("#results").load("LeftTableHeader.html");
+				$("#favourites").load("LeftTableHeader.html");
 			}
 		});
 	</script>
