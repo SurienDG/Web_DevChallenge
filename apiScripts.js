@@ -1,7 +1,7 @@
 var apiKey="InsertAPIKEY";
 
 
-function starRepo (repo) {
+function starRepo (repo, searchparam) {
  var Url = "https://api.github.com/user/starred/" + repo;
  var xhr = new XMLHttpRequest();
 			  xhr.open('Put', Url, true);
@@ -13,9 +13,7 @@ function starRepo (repo) {
 	
 	function processRequest(e) {
 	 if (xhr.readyState == 4 && xhr.status == 204) {
-		var response1 = "starred";
-		document.getElementById("origin").innerHTML = response1;
-		document.getElementById("url").innerHTML = response1.url;
+		search(searchparam);
 	 }
  }
 }
@@ -31,9 +29,10 @@ function starredRepo (repo, row, index, tagUrl, searchparam) {
 	
 	function processRequest(e) {
 	 if (xhr.readyState == 4 && xhr.status == 204) {
-		 row+="<a id=\"remove" + index + "\" href=\"#\" onclick=\"unstarRepo(\'" + repo + "\',\'" + searchparam + "\');return false;\">remove</a>"
+		 row+="<a id=\"remove" + index + "\" href=\"#\" onclick=\"unstarRepo(\'" + repo + "\',\'" + searchparam + "\');return false;\">remove</a>";
 		 row+="</td></tr>";
 		document.getElementById("favourites").innerHTML += row;
+		document.getElementById("favourite" + index).innerHTML = ""; 
 		tags(tagUrl, index);
 	 }
  }
@@ -151,8 +150,10 @@ function MakeLeftTable (searchResults,searchParam) {
 		//var language = mainLanguage(searchResults.items[i].full_name);
 		table += "<td>" + searchResults.items[i].language + "</td>";
 		table += "<td id=\"tag" + i + "\"></td>";
-		table += "<td id=\"favourite" + i + "\"></td>";
-		table += "</tr>";
+		table += "<td id=\"favourite" + i + "\">";
+		table+="<a id=\"add" + i + "\" href=\"#\" onclick=\"starRepo(\'" + searchResults.items[i].full_name + "\',\'" + searchParam + "\');return false;\">add</a>";
+		 table+="</td></tr>";
+		//table += "</tr>";
 		row += "<tr>";
 	row += "<td>" + searchResults.items[i].full_name + "</td>";
 		//var language = mainLanguage(searchResults.items[i].full_name);
