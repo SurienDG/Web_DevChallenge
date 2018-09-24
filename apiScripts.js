@@ -146,7 +146,7 @@ function MakeLeftTable (searchResults,searchParam) {
 	for (var i=0; i<10 && !(jQuery.isEmptyObject(searchResults.items[i])); i++) {
 		row="";
 		table += "<tr>";
-	table += "<td>" + searchResults.items[i].full_name + "</td>";
+	table += "<td><a id = \"name\" href=\"" + searchResults.items[i].html_url + "\">" + searchResults.items[i].full_name + "</a></td>";
 		//var language = mainLanguage(searchResults.items[i].full_name);
 		table += "<td>" + searchResults.items[i].language + "</td>";
 		table += "<td id=\"tag" + i + "\"></td>";
@@ -155,7 +155,7 @@ function MakeLeftTable (searchResults,searchParam) {
 		 table+="</td></tr>";
 		//table += "</tr>";
 		row += "<tr>";
-	row += "<td>" + searchResults.items[i].full_name + "</td>";
+	row += "<td><a id = \"name\" href=\"" + searchResults.items[i].html_url + "\">" + searchResults.items[i].full_name + "</a></td>";
 		//var language = mainLanguage(searchResults.items[i].full_name);
 		row += "<td>" + searchResults.items[i].language + "</td>";
 		row += "<td id=\"tags" + i + "\"></td>";

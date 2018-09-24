@@ -81,4 +81,9 @@ table td
 
 					text-align: left;
 				}
+#name 
+      {
+		color: #333;
+  		text-decoration: none;  
+	  }
 
