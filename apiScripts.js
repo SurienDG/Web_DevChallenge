@@ -1,6 +1,9 @@
 var apiKey = "InsertAPIKEY";
 
 
+//function that stars desired repo from the list of search results
+//  if you wish to use this function without a search param replace the field with ""
+//  uses a put request
 function starRepo(repo, searchparam) {
     var Url = "https://api.github.com/user/starred/" + repo;
     var xhr = new XMLHttpRequest();
@@ -18,6 +21,9 @@ function starRepo(repo, searchparam) {
     }
 }
 
+//function that performs a get request to check if repo is starred
+// request reponse is 404 if not found and 204 otherwise
+// Also, function updates the favourites table with the results
 function starredRepo(repo, row, index, tagUrl, searchparam) {
     var Url = "https://api.github.com/user/starred/" + repo;
     var xhr = new XMLHttpRequest();
@@ -39,6 +45,10 @@ function starredRepo(repo, row, index, tagUrl, searchparam) {
     }
 }
 
+
+// function to perfom delete request to remove a repo from the favourites lists (unstarres the repo)
+//   this function also redoes the searching and builds the table to update the local and check for any
+//   other updates from someone not using this UI.
 function unstarRepo(repo, searchparam) {
     var Url = "https://api.github.com/user/starred/" + repo;
     var xhr = new XMLHttpRequest();
@@ -56,28 +66,9 @@ function unstarRepo(repo, searchparam) {
     }
 }
 
-function mainLanguage(repo) {
-    var Url = "https://api.github.com/repos/" + repo + "/languages";
-    var xhr = new XMLHttpRequest();
-    xhr.open('Get', Url, false);
-    xhr.setRequestHeader('Content-Type', 'application/json');
 
-    xhr.setRequestHeader("Authorization", "token " + apiKey);
-    xhr.send();
-    xhr.onreadystatechange = processRequest;
-    var results1 = true;
-
-    function processRequest(e) {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            results1 = JSON.parse(xhr.responseText);
-        }
-    };
-
-	
-    return results1;
-
-}
-
+//checks to see what tag is associated with a repo and uses tagNumber to put it in the right spot
+// in the table (function could return after table was built)   
 function tags(tagUrl, tagNumber) {
     var Url = tagUrl;
     var xhr = new XMLHttpRequest();
@@ -107,11 +98,9 @@ function tags(tagUrl, tagNumber) {
         }
     };
 
-    //results = JSON.parse(xhr.responseText);
-
-
 }
 
+//makes the call to the api to get the search results based on the searchParam
 function search(searchParam) {
     $("#results").load("LeftTableHeader.html");
     $("#favourites").load("LeftTableHeader.html");
@@ -129,15 +118,16 @@ function search(searchParam) {
     function processRequest(e) {
         if (xhr.readyState == 4 && xhr.status == 200) {
             var results = JSON.parse(xhr.responseText);
-            MakeLeftTable(results, searchParam);
+            makeTables(results, searchParam);
 
         }
     }
     return false;
 }
 
-
-function MakeLeftTable(searchResults, searchParam) {
+//creates the structure for the tables and calls the functions to make further api calls
+//  to add info to the tables    
+function makeTables(searchResults, searchParam) {
     //$("#results").load("LeftTableHeader.html");
     var table = document.getElementById("results").innerHTML;
     var row = "";
