@@ -1,6 +1,6 @@
 # Web_DevChallenge
 
-## View the site here (note search won't work since can't add valid API key to project for security reasons): https://sman13.github.io/Web_DevChallenge/
+## View the site here (note search won't work since can't add valid API key to project for security reasons): https://surienDG.github.io/Web_DevChallenge/
 
 ## To Use Must change API key. See notes
 
